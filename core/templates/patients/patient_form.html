@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh; background: linear-gradient(135deg, #6a11cb, #2575fc);">
+    <div class="card shadow-lg border-0 rounded-4" style="width: 450px;">
+        <div class="card-header text-white text-center" style="background-color: #4b6cb7;">
+            <h3 class="fw-bold mb-0">
+                {% if edit %} ✏️ Edit Patient {% else %} ➕ Add New Patient {% endif %}
+            </h3>
+        </div>
+
+        <div class="card-body p-4">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="post">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Username</label>
+                    {{ form.username }}
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">First Name</label>
+                    {{ form.first_name }}
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Last Name</label>
+                    {{ form.last_name }}
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Phone</label>
+                    {{ form.phone }}
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Age</label>
+                    {{ form.age }}
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Gender</label>
+                    {{ form.gender }}
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 py-2 mt-2">
+                    {% if edit %} Update Patient {% else %} Save Patient {% endif %}
+                </button>
+            </form>
+        </div>
+
+        <div class="card-footer text-center small text-muted">
+            <a href="{% url 'core:patient_list' %}" class="text-decoration-none">← Back to Patients</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

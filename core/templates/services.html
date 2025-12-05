@@ -1,0 +1,118 @@
+{% extends 'public_base.html' %}
+{% block content %}
+
+<!-- Bootstrap Icons CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+<style>
+    .service-card {
+        transition: all 0.3s ease;
+        border-radius: 12px;
+        cursor: pointer;
+        border: none;
+    }
+    .service-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+    .service-icon {
+        font-size: 40px;
+        color: #0d6efd;
+        margin-bottom: 15px;
+    }
+</style>
+
+<div class="container mt-5 mb-5">
+
+    <h2 class="text-center fw-bold text-primary mb-3">Our Services</h2>
+    <p class="text-center text-muted mb-5">
+        Discover modern, smart, and secure healthcare features designed for patients, doctors, and administrators.
+    </p>
+
+    <div class="row g-4">
+
+        <!-- Online Appointment Booking -->
+        <div class="col-md-4">
+            <div class="card shadow-sm p-4 text-center service-card">
+                <i class="bi bi-calendar-check service-icon"></i>
+                <h5 class="fw-bold">Online Appointment Booking</h5>
+                <p>Schedule appointments with certified doctors anytime, anywhere.</p>
+            </div>
+        </div>
+
+        <!-- Doctor Directory -->
+        <div class="col-md-4">
+            <div class="card shadow-sm p-4 text-center service-card">
+                <i class="bi bi-people service-icon"></i>
+                <h5 class="fw-bold">Doctor Directory</h5>
+                <p>Browse verified doctors, explore profiles, and find the right specialist.</p>
+            </div>
+        </div>
+
+        <!-- Digital Medical Records -->
+        <div class="col-md-4">
+            <div class="card shadow-sm p-4 text-center service-card">
+                <i class="bi bi-file-medical service-icon"></i>
+                <h5 class="fw-bold">Digital Medical Records</h5>
+                <p>Secure access to medical history, prescriptions, and reports.</p>
+            </div>
+        </div>
+
+        <!-- Prescription Management -->
+        <div class="col-md-4">
+            <div class="card shadow-sm p-4 text-center service-card">
+                <i class="bi bi-prescription2 service-icon"></i>
+                <h5 class="fw-bold">Prescription Management</h5>
+                <p>Doctors update prescriptions, and patients can view them anytime.</p>
+            </div>
+        </div>
+
+        <!-- Patient Dashboard -->
+        <div class="col-md-4">
+            <div class="card shadow-sm p-4 text-center service-card">
+                <i class="bi bi-speedometer2 service-icon"></i>
+                <h5 class="fw-bold">Patient Dashboard</h5>
+                <p>Track appointments, details, and complete health history.</p>
+            </div>
+        </div>
+
+        <!-- Doctor Portal -->
+        <div class="col-md-4">
+            <div class="card shadow-sm p-4 text-center service-card">
+                <i class="bi bi-person-workspace service-icon"></i>
+                <h5 class="fw-bold">Doctor Portal</h5>
+                <p>Doctors manage patient records, appointments, and more.</p>
+            </div>
+        </div>
+
+        <!-- Appointment Reminders -->
+        <div class="col-md-4">
+            <div class="card shadow-sm p-4 text-center service-card">
+                <i class="bi bi-bell service-icon"></i>
+                <h5 class="fw-bold">Appointment Reminders</h5>
+                <p>Get alerts and reminders so you never miss a visit. (Upcoming)</p>
+            </div>
+        </div>
+
+        <!-- Secure Login -->
+        <div class="col-md-4">
+            <div class="card shadow-sm p-4 text-center service-card">
+                <i class="bi bi-shield-lock service-icon"></i>
+                <h5 class="fw-bold">Secure Login</h5>
+                <p>Role-based secure access ensuring privacy of all medical data.</p>
+            </div>
+        </div>
+
+        <!-- Admin Management -->
+        <div class="col-md-4">
+            <div class="card shadow-sm p-4 text-center service-card">
+                <i class="bi bi-gear service-icon"></i>
+                <h5 class="fw-bold">Admin Management</h5>
+                <p>Admins manage doctors, patients, users, and appointments efficiently.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

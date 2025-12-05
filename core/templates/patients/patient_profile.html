@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>{{ patient.name }} <small class="text-muted">({{ patient.phone }})</small></h3>
+<p><strong>Email:</strong> {{ patient.email }}</p>
+<p><strong>Doctor:</strong> {% if patient.doctor %}{{ patient.doctor }}{% else %}-{% endif %}</p>
+
+<h5 class="mt-4">Appointments</h5>
+<ul class="list-group">
+  {% for ap in appointments %}
+  <li class="list-group-item">{{ ap.date }} {{ ap.time }} — {{ ap.status }}</li>
+  {% empty %}
+  <li class="list-group-item">No appointments</li>
+  {% endfor %}
+</ul>
+
+<h5 class="mt-4">Medical Records</h5>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <a href="{% url 'core:record_create' patient.id %}" class="btn btn-primary btn-sm mb-3">Add Note</a>
+</form>
+
+
+<ul class="list-group mt-3">
+  {% for r in records %}
+  <li class="list-group-item">
+    <small class="text-muted">{{ r.created_at }} by {{ r.created_by }}</small>
+    <div>{{ r.note }}</div>
+  </li>
+  {% empty %}
+  <li class="list-group-item">No records</li>
+  {% endfor %}
+</ul>
+{% endblock %}

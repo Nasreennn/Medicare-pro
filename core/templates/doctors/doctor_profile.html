@@ -1,0 +1,40 @@
+{% extends 'public_base.html' %}
+{% block content %}
+
+<div class="container my-5">
+    <div class="card shadow p-4">
+        <h2 class="text-center text-primary fw-bold mb-4">
+            Dr. {{ doctor.user.get_full_name }}
+        </h2>
+
+        <p><strong>Specialization:</strong> {{ doctor.specialization }}</p>
+        <p><strong>Phone:</strong> {{ doctor.phone }}</p>
+        <p><strong>Email:</strong> {{ doctor.user.email }}</p>
+
+        {% if doctor.qualification %}
+        <p><strong>Qualification:</strong> {{ doctor.qualification }}</p>
+        {% endif %}
+
+        {% if doctor.experience %}
+        <p><strong>Experience:</strong> {{ doctor.experience }} years</p>
+        {% endif %}
+
+        {% if doctor.bio %}
+        <p><strong>Bio:</strong><br>{{ doctor.bio }}</p>
+        {% endif %}
+
+        {% if doctor.clinic_address %}
+        <p><strong>Clinic Address:</strong> {{ doctor.clinic_address }}</p>
+        {% endif %}
+
+        {% if doctor.timings %}
+        <p><strong>Timings:</strong> {{ doctor.timings }}</p>
+        {% endif %}
+
+        <div class="text-center mt-4">
+            <a href="{% url 'core:doctor_list' %}" class="btn btn-secondary">Back</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

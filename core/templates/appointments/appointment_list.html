@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="fw-bold text-primary">
+      <i class="bi bi-calendar-check-fill"></i> Appointments
+    </h2>
+    <a href="{% url 'core:appointment_create' %}" class="btn btn-success">
+      <i class="bi bi-plus-circle"></i> Add Appointment
+    </a>
+  </div>
+
+  {% if appointments %}
+  <div class="card shadow-sm rounded-4">
+    <div class="card-body">
+      <table class="table table-hover align-middle">
+        <thead class="table-primary">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Patient</th>
+            <th scope="col">Doctor</th>
+            <th scope="col">Date</th>
+            <th scope="col">Status</th>
+            <th scope="col" class="text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for appointment in appointments %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+
+            <!-- Patient -->
+            <td class="fw-semibold text-capitalize">
+              {{ appointment.patient.user.get_full_name }}
+            </td>
+
+            <!-- Doctor -->
+            <td>
+              {% if appointment.doctor %}
+              <span class="badge bg-info text-dark">
+                {{ appointment.doctor.user.get_full_name }}
+              </span>
+              {% else %}
+              <span class="text-muted">—</span>
+              {% endif %}
+            </td>
+
+            <!-- Date -->
+            <td>{{ appointment.date_time|date:"M d, Y" }}</td>
+
+            <!-- FIXED STATUS LOGIC -->
+            <td>
+              {% if appointment.status == 'Pending' %}
+                  <span class="badge bg-warning text-dark">Pending</span>
+              {% elif appointment.status == 'Confirmed' %}
+                  <span class="badge bg-primary">Confirmed</span>
+              {% elif appointment.status == 'Completed' %}
+                  <span class="badge bg-success">Completed</span>
+              {% else %}
+                  <span class="badge bg-secondary">Unknown</span>
+              {% endif %}
+            </td>
+<td class="text-center">
+    <a href="{% url 'core:appointment_edit' appointment.id %}" 
+       class="btn btn-sm btn-primary px-3">
+        <i class="bi bi-pencil-square"></i> Edit
+    </a>
+
+    <a href="{% url 'core:appointment_detail' appointment.id %}" 
+       class="btn btn-sm btn-outline-secondary px-3">
+        <i class="bi bi-eye"></i> View
+    </a>
+
+    <!-- APPROVE / REJECT -->
+    {% if user.is_doctor and appointment.status == "Pending" %}
+        <a href="{% url 'core:approve_appointment' appointment.id %}" 
+           class="btn btn-success btn-sm px-3 mt-1">
+            Approve
+        </a>
+
+        <a href="{% url 'core:reject_appointment' appointment.id %}" 
+           class="btn btn-danger btn-sm px-3 mt-1">
+            Reject
+        </a>
+    {% endif %}
+</td>
+
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% else %}
+  <div class="alert alert-info text-center rounded-4 shadow-sm mt-5">
+    <i class="bi bi-info-circle"></i> No appointments found.
+  </div>
+  {% endif %}
+</div>
+
+<style>
+  .table {
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .table-hover tbody tr:hover {
+    background-color: #e9f3ff;
+    transition: 0.3s;
+  }
+  .btn {
+    border-radius: 20px;
+  }
+  h2 i {
+    margin-right: 8px;
+  }
+</style>
+{% endblock %}

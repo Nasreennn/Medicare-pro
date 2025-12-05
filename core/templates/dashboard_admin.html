@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+  .chart-box {
+      background: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      width: 100%;
+      min-height: 420px;          /* 🔥 Makes charts large */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+  }
+
+  canvas {
+      max-height: 300px !important;   /* 🔥 Prevents chart shrinking */
+  }
+
+  .card {
+      min-height: 150px;
+  }
+</style>
+
+<div class="container mt-4 dashboard-container">
+
+  <h2 class="text-center mb-4 text-success">🩺 MediCare Pro – Admin Dashboard</h2>
+
+  <!-- STAT CARDS -->
+  <div class="row g-4">
+    <div class="col-md-4 col-12">
+      <div class="card text-center p-3 shadow-sm rounded-4">
+        <i class="bi bi-people fs-2 text-primary"></i>
+        <h5 class="mt-2">Total Patients</h5>
+        <h3 class="text-primary">{{ total_patients }}</h3>
+      </div>
+    </div>
+
+    <div class="col-md-4 col-12">
+      <div class="card text-center p-3 shadow-sm rounded-4">
+        <i class="bi bi-person-badge fs-2 text-success"></i>
+        <h5 class="mt-2">Doctors</h5>
+        <h3 class="text-success">{{ doctors_count }}</h3>
+      </div>
+    </div>
+
+    <div class="col-md-4 col-12">
+      <div class="card text-center p-3 shadow-sm rounded-4">
+        <i class="bi bi-calendar-check fs-2 text-danger"></i>
+        <h5 class="mt-2">Total Appointments</h5>
+        <h3 class="text-danger">{{ total_appointments }}</h3>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHARTS SECTION -->
+  <div class="row mt-5">
+
+    <!-- Appointment Status Chart -->
+    <div class="col-md-6 col-12 mb-4">
+      <div class="chart-box">
+        <h6 class="text-center text-secondary mb-3">Appointment Status</h6>
+        <canvas id="statusChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Monthly Appointments Chart -->
+    <div class="col-md-6 col-12 mb-4">
+      <div class="chart-box">
+        <h6 class="text-center text-secondary mb-3">Appointments per Month</h6>
+        <canvas id="monthlyChart"></canvas>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Button -->
+  <div class="text-center mt-4 mb-4">
+    <a href="{% url 'core:record_list' %}" class="btn btn-primary btn-lg">View All Medical Records</a>
+  </div>
+
+</div>
+
+<!-- CHART JS -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  // Appointment Status Chart
+  const statusCtx = document.getElementById('statusChart').getContext('2d');
+  new Chart(statusCtx, {
+    type: 'pie',
+    data: {
+      labels: ['Pending', 'Confirmed', 'Completed', 'Rejected'],
+      datasets: [{
+        data: [
+          {{ pending_count }},
+          {{ confirmed_count }},
+          {{ completed_count }},
+          {{ rejected_count }},
+        ],
+        backgroundColor: ['#ffca28', '#42a5f5', '#66bb6a', '#ef5350'],
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { position: 'bottom' } }
+    }
+  });
+
+  // Monthly Appointments Chart
+  const monthlyCtx = document.getElementById('monthlyChart').getContext('2d');
+  new Chart(monthlyCtx, {
+    type: 'bar',
+    data: {
+      labels: {{ month_labels|safe }},
+      datasets: [{
+        data: {{ month_counts|safe }},
+        backgroundColor: '#26a69a',
+        borderRadius: 10
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: { y: { beginAtZero: true } }
+    }
+  });
+</script>
+
+{% endblock %}

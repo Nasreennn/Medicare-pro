@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+/* Light background */
+.page-bg {
+    min-height: 100vh;
+    background: #f4f7fb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Login card */
+.login-card {
+    width: 380px;
+    background: white;
+    border-radius: 14px;
+    padding: 35px;
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.1);
+}
+
+/* Inputs */
+.login-card input {
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #cfd7e3 !important;
+    padding: 10px;
+}
+
+/* Login button */
+.btn-login {
+    background: #2d6cdf;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.btn-login:hover {
+    background: #1d4fb8;
+}
+
+/* Signup link */
+.signup-text a {
+    color: #2d6cdf;
+    font-weight: bold;
+}
+.signup-text a:hover {
+    text-decoration: underline;
+}
+</style>
+
+<div class="page-bg">
+
+    <div class="login-card">
+        <h2 class="text-center mb-4 fw-bold text-primary">Medicare Pro</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button class="btn btn-login w-100 mt-3 py-2">Login</button>
+        </form>
+
+        <p class="text-center mt-3 signup-text">
+            Don't have an account?
+            <a href="{% url 'core:signup' %}">Sign up</a>
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}

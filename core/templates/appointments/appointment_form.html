@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-4">
+    <h2>Schedule Appointment</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        {% if request.user.is_patient %}
+            <!-- Hidden patient field (MUST be present) -->
+            <input type="hidden" name="patient" value="{{ request.user.patient.id }}">
+        {% endif %}
+
+        {% if request.user.is_doctor %}
+            <label>Patient:</label>
+            {{ form.patient }}
+        {% endif %}
+
+        <label>Doctor:</label>
+        {{ form.doctor }}
+
+        <label>Date & Time:</label>
+        {{ form.date_time }}
+
+        {% if request.user.is_doctor %}
+            <label>Status:</label>
+            {{ form.status }}
+        {% endif %}
+
+        <button class="btn btn-primary mt-3">Save</button>
+    </form>
+
+</div>
+
+{% endblock %}

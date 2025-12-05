@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+
+    <h2 class="mb-3">Welcome, {{ patient.user.get_full_name }}</h2>
+
+    <div class="row">
+
+        <!-- Appointments Section -->
+        <div class="col-md-6">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5>Your Appointments</h5>
+                </div>
+                <div class="card-body">
+                    {% if appointments %}
+                        <ul class="list-group">
+                            {% for a in appointments %}
+                                <li class="list-group-item">
+                                    <strong>{{ a.doctor.user.get_full_name }}</strong><br>
+                                    <span class="text-muted">{{ a.date_time }}</span><br>
+                                    <strong>Status:</strong> {{ a.status }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="text-muted">No appointments found.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+       <!-- Medical Records Section -->
+        <div class="card shadow-sm mb-4 mt-4">
+            <div class="card-header bg-success text-white">
+                <h5>Your Medical Records</h5>
+            </div>
+            <div class="card-body">
+
+                {% if records %}
+                    <ul class="list-group">
+                        {% for r in records %}
+                            <li class="list-group-item">
+                                <strong>{{ r.created_at|date:"M d, Y h:i A" }}</strong><br>
+                                {{ r.description }}<br>
+                                <small class="text-muted">
+                                    Added by Dr. {{ r.doctor.user.get_full_name }}
+                                </small>
+
+                                <!-- ✅ PDF DOWNLOAD BUTTON (ONLY ADD THIS) -->
+                                <br>
+                                <a href="{% url 'core:record_pdf' r.id %}" 
+                                   class="btn btn-sm btn-primary mt-2">
+                                    Download PDF
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="text-muted">No medical records found.</p>
+                {% endif %}
+
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

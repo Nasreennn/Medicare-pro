@@ -1,0 +1,41 @@
+{% extends 'public_base.html' %}
+{% block content %}
+
+<div class="container mt-4">
+    <h2 class="text-primary fw-bold mb-4">All Medical Records</h2>
+
+    {% if records %}
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Date</th>
+                <th>Patient</th>
+                <th>Doctor</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for rec in records %}
+            <tr>
+                <td>{{ rec.created_at|date:"M d, Y - h:i A" }}</td>
+                <td>{{ rec.patient.user.get_full_name }}</td>
+                <td>
+                    {% if rec.doctor %}
+                        Dr. {{ rec.doctor.user.get_full_name }} ({{ rec.doctor.specialization }})
+                    {% else %}
+                        —
+                    {% endif %}
+                </td>
+                <td>{{ rec.description }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% else %}
+        <p class="text-muted">No medical records in the system.</p>
+    {% endif %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,114 @@
+{% extends 'public_base.html' %}
+{% block content %}
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+<style>
+    .contact-card {
+        border-radius: 12px;
+        transition: 0.3s ease;
+    }
+
+    .contact-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    }
+
+    .contact-icon {
+        font-size: 40px;
+        color: #0d6efd;
+        margin-bottom: 15px;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        padding: 10px;
+    }
+
+    .btn-primary {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 16px;
+    }
+</style>
+
+<div class="container mt-5 mb-5">
+
+    <h2 class="text-center fw-bold text-primary mb-3">Contact Us</h2>
+    <p class="text-center text-muted mb-5">
+        Have questions or need support? We're here to help you 24/7.
+    </p>
+
+    <div class="row g-4">
+
+        <!-- CONTACT INFORMATION -->
+        <div class="col-md-4">
+            <div class="card shadow-sm p-4 text-center contact-card">
+                <i class="bi bi-geo-alt contact-icon"></i>
+                <h5 class="fw-bold mb-2">Our Location</h5>
+                <p class="text-muted">
+                    MG Road, Bengaluru<br>
+                    Karnataka, India – 560001
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm p-4 text-center contact-card">
+                <i class="bi bi-telephone contact-icon"></i>
+                <h5 class="fw-bold mb-2">Call Us</h5>
+                <p class="text-muted">
+                    +91 9876543210<br>
+                    Mon–Sat | 9 AM – 7 PM
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm p-4 text-center contact-card">
+                <i class="bi bi-envelope contact-icon"></i>
+                <h5 class="fw-bold mb-2">Email Us</h5>
+                <p class="text-muted">
+                    support@medicarepro.com<br>
+                    helpdesk@medicarepro.com
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- CONTACT FORM -->
+    <div class="row mt-5">
+        <div class="col-md-8 mx-auto">
+            <div class="card shadow-sm p-4">
+
+                <h5 class="fw-bold text-primary mb-3">Send us a message</h5>
+
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-control" placeholder="Enter your name">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-control" placeholder="Enter your email">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Message</label>
+                        <textarea class="form-control" rows="5" placeholder="Write your message"></textarea>
+                    </div>
+
+                    <button class="btn btn-primary">Submit</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
